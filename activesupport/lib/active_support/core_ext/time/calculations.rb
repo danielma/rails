@@ -75,6 +75,8 @@ class Time
   #   Time.new(2012, 8, 29, 22, 35, 0).change(year: 1981, day: 1)  # => Time.new(1981, 8, 1, 22, 35, 0)
   #   Time.new(2012, 8, 29, 22, 35, 0).change(year: 1981, hour: 0) # => Time.new(1981, 8, 29, 0, 0, 0)
   def change(options)
+    options.symbolize_keys!
+
     new_year  = options.fetch(:year, year)
     new_month = options.fetch(:month, month)
     new_day   = options.fetch(:day, day)
@@ -105,6 +107,8 @@ class Time
   # <tt>:weeks</tt>, <tt>:days</tt>, <tt>:hours</tt>, <tt>:minutes</tt>,
   # <tt>:seconds</tt>.
   def advance(options)
+    options.symbolize_keys!
+
     unless options[:weeks].nil?
       options[:weeks], partial_weeks = options[:weeks].divmod(1)
       options[:days] = options.fetch(:days, 0) + 7 * partial_weeks
